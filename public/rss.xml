@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>locus-x64 · security research notes</title>
+    <link>https://locus-x64.github.io/</link>
+    <atom:link href="https://locus-x64.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>Vulnerability research, exploit development and reverse engineering notes by Ali Raza (locus-x64).</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Aug 2026 15:19:44 GMT</lastBuildDate>
+    <generator>locus-x64 generate-rss.mjs</generator>
+    <item>
+      <title>Call of the Death: An N-Day Walk Through a Samsung Baseband Heap Overflow (CVE-2020-25279)</title>
+      <link>https://locus-x64.github.io/blog/cve-2020-25279</link>
+      <guid isPermaLink="true">https://locus-x64.github.io/blog/cve-2020-25279</guid>
+      <pubDate>Mon, 22 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Reversing a Samsung Exynos (Shannon) baseband firmware to independently locate CVE-2020-25279, a missing Bearer Capability length check in the SETUP message parser that lets an oversized buffer be allocated and later overflow.</description>
+      <category>Reverse Engineering</category>
+      <category>Baseband</category>
+      <category>Vulnerability Research</category>
+      <category>CVE</category>
+    </item>
+    <item>
+      <title>Process Hijacking via pidfd: Stealing File Descriptors for Post-Exploitation Shells</title>
+      <link>https://locus-x64.github.io/blog/hijack-pidfd</link>
+      <guid isPermaLink="true">https://locus-x64.github.io/blog/hijack-pidfd</guid>
+      <pubDate>Wed, 04 Mar 2026 00:00:00 GMT</pubDate>
+      <description>A technique for stealing file descriptors across process boundaries using Linux pidfd syscalls for post-exploitation shells on Android.</description>
+      <category>Exploit Development</category>
+      <category>Technique</category>
+    </item>
+    <item>
+      <title>CVE-2025-61765: RCE in Socket.IO via Pickle Deserialization</title>
+      <link>https://locus-x64.github.io/blog/cve-2025-61765</link>
+      <guid isPermaLink="true">https://locus-x64.github.io/blog/cve-2025-61765</guid>
+      <pubDate>Sat, 15 Nov 2025 00:00:00 GMT</pubDate>
+      <description>A Remote Code Execution vulnerability in python-socketio affecting multi-server deployments using message brokers. Caused by insecure deserialization where the library blindly unpickles data from shared message channels.</description>
+      <category>Vulnerability Research</category>
+      <category>Python</category>
+      <category>Deserialization</category>
+      <category>CVE</category>
+    </item>
+    <item>
+      <title>Elixir Cross Referencer: Indexing and Auditing Source Code</title>
+      <link>https://locus-x64.github.io/blog/setup-elixir</link>
+      <guid isPermaLink="true">https://locus-x64.github.io/blog/setup-elixir</guid>
+      <pubDate>Wed, 27 Mar 2024 00:00:00 GMT</pubDate>
+      <description>Explore source code in your browser - Particularly useful for the Linux kernel and other low-level projects in C/C++. A guide to setting up your own Elixir instance.</description>
+      <category>Vulnerability Research</category>
+      <category>Code Auditing</category>
+      <category>Tools</category>
+    </item>
+    <item>
+      <title>CVE-2024-22857: Arbitrary Code Execution in zlog</title>
+      <link>https://locus-x64.github.io/blog/cve-2024-22857</link>
+      <guid isPermaLink="true">https://locus-x64.github.io/blog/cve-2024-22857</guid>
+      <pubDate>Sat, 09 Mar 2024 00:00:00 GMT</pubDate>
+      <description>Heap-based buffer overflow in zlog versions 1.1.0 to 1.2.17 in zlog_rule_new(). An attacker can exploit this vulnerability to overwrite the zlog_record_fn record_func function pointer to achieve arbitrary code execution.</description>
+      <category>Vulnerability Research</category>
+      <category>Exploitation</category>
+      <category>CVE</category>
+    </item>
+    <item>
+      <title>Linux Kernel Compilation and Adding a Custom System Call</title>
+      <link>https://locus-x64.github.io/blog/linux-kernel-compilation</link>
+      <guid isPermaLink="true">https://locus-x64.github.io/blog/linux-kernel-compilation</guid>
+      <pubDate>Wed, 13 Apr 2022 00:00:00 GMT</pubDate>
+      <description>We can make changes to the Linux kernel and compile it to make a custom copy. Learn how to compile a kernel, add a custom system call, write a wrapper function, and create a man page.</description>
+      <category>Linux Kernel</category>
+      <category>System Calls</category>
+      <category>Security Research</category>
+    </item>
+  </channel>
+</rss>

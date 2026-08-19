@@ -1,7 +1,7 @@
 ---
 id: "5"
 slug: "hijack-pidfd"
-title: " Process Hijacking via pidfd: Stealing File Descriptors for Post-Exploitation Shells"
+title: "Process Hijacking via pidfd: Stealing File Descriptors for Post-Exploitation Shells"
 excerpt: "A technique for stealing file descriptors across process boundaries using Linux pidfd syscalls for post-exploitation shells on Android."
 date: "2026-03-04"
 readingTime: 30
@@ -782,14 +782,14 @@ The shellcode encodings (branch offsets, instruction sequences, syscall numbers)
 
 ## References
 
-1. **pidfd_open(2) man page** — [man7.org/linux/man-pages/man2/pidfd_open.2.html](https://man7.org/linux/man-pages/man2/pidfd_open.2.html)
-2. **pidfd_getfd(2) man page** — [man7.org/linux/man-pages/man2/pidfd_getfd.2.html](https://man7.org/linux/man-pages/man2/pidfd_getfd.2.html)
-3. **"Grabbing file descriptors with pidfd_getfd()"** — Jonathan Corbet, LWN.net, January 2020 — [lwn.net/Articles/808997/](https://lwn.net/Articles/808997/)
-4. **"Completing the pidfd API"** — Christian Brauner, LWN.net, 2019 — [lwn.net/Articles/800379/](https://lwn.net/Articles/800379/)
-5. **Linux kernel source: pidfd_getfd implementation** — [github.com/torvalds/linux](https://github.com/torvalds/linux) (`kernel/pid.c`, `fs/file.c`)
-6. **Pidfd timeline and history** — Nick Black, dankwiki — [nick-black.com/dankwiki/index.php/Pidfd](https://nick-black.com/dankwiki/index.php/Pidfd)
-7. **ptrace(2) — PTRACE_MODE_ATTACH_REALCREDS** — [man7.org/linux/man-pages/man2/ptrace.2.html](https://man7.org/linux/man-pages/man2/ptrace.2.html)
-8. **Linux kernel selftests: pidfd_getfd_test.c** — [android.googlesource.com/kernel/common](https://android.googlesource.com/kernel/common/+/refs/heads/android-mainline/tools/testing/selftests/pidfd/pidfd_getfd_test.c)
-9. **POSIX.1-2017 `open(2)` specification** — O_CREAT | O_EXCL atomicity guarantees: "If O_EXCL and O_CREAT are set, open() shall fail if the file exists."
+1. **pidfd_open(2) man page**, [man7.org/linux/man-pages/man2/pidfd_open.2.html](https://man7.org/linux/man-pages/man2/pidfd_open.2.html)
+2. **pidfd_getfd(2) man page**, [man7.org/linux/man-pages/man2/pidfd_getfd.2.html](https://man7.org/linux/man-pages/man2/pidfd_getfd.2.html)
+3. **"Grabbing file descriptors with pidfd_getfd()"**, Jonathan Corbet, LWN.net, January 2020, [lwn.net/Articles/808997/](https://lwn.net/Articles/808997/)
+4. **"Completing the pidfd API"**, Christian Brauner, LWN.net, 2019, [lwn.net/Articles/800379/](https://lwn.net/Articles/800379/)
+5. **Linux kernel source: pidfd_getfd implementation**, [github.com/torvalds/linux](https://github.com/torvalds/linux) (`kernel/pid.c`, `fs/file.c`)
+6. **Pidfd timeline and history**, Nick Black, dankwiki, [nick-black.com/dankwiki/index.php/Pidfd](https://nick-black.com/dankwiki/index.php/Pidfd)
+7. **ptrace(2), PTRACE_MODE_ATTACH_REALCREDS**, [man7.org/linux/man-pages/man2/ptrace.2.html](https://man7.org/linux/man-pages/man2/ptrace.2.html)
+8. **Linux kernel selftests: pidfd_getfd_test.c**, [android.googlesource.com/kernel/common](https://android.googlesource.com/kernel/common/+/refs/heads/android-mainline/tools/testing/selftests/pidfd/pidfd_getfd_test.c)
+9. **POSIX.1-2017 `open(2)` specification**, O_CREAT | O_EXCL atomicity guarantees: "If O_EXCL and O_CREAT are set, open() shall fail if the file exists."
 
-— locus-x64
+- locus-x64

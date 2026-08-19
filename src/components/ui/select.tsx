@@ -1,26 +1,24 @@
-import { ComponentProps } from "react"
+import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
-import CheckIcon from "lucide-react/dist/esm/icons/check"
-import ChevronDownIcon from "lucide-react/dist/esm/icons/chevron-down"
-import ChevronUpIcon from "lucide-react/dist/esm/icons/chevron-up"
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
 function Select({
   ...props
-}: ComponentProps<typeof SelectPrimitive.Root>) {
+}: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />
 }
 
 function SelectGroup({
   ...props
-}: ComponentProps<typeof SelectPrimitive.Group>) {
+}: React.ComponentProps<typeof SelectPrimitive.Group>) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />
 }
 
 function SelectValue({
   ...props
-}: ComponentProps<typeof SelectPrimitive.Value>) {
+}: React.ComponentProps<typeof SelectPrimitive.Value>) {
   return <SelectPrimitive.Value data-slot="select-value" {...props} />
 }
 
@@ -29,7 +27,7 @@ function SelectTrigger({
   size = "default",
   children,
   ...props
-}: ComponentProps<typeof SelectPrimitive.Trigger> & {
+}: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: "sm" | "default"
 }) {
   return (
@@ -53,9 +51,10 @@ function SelectTrigger({
 function SelectContent({
   className,
   children,
-  position = "popper",
+  position = "item-aligned",
+  align = "center",
   ...props
-}: ComponentProps<typeof SelectPrimitive.Content>) {
+}: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
@@ -67,6 +66,7 @@ function SelectContent({
           className
         )}
         position={position}
+        align={align}
         {...props}
       >
         <SelectScrollUpButton />
@@ -88,7 +88,7 @@ function SelectContent({
 function SelectLabel({
   className,
   ...props
-}: ComponentProps<typeof SelectPrimitive.Label>) {
+}: React.ComponentProps<typeof SelectPrimitive.Label>) {
   return (
     <SelectPrimitive.Label
       data-slot="select-label"
@@ -102,7 +102,7 @@ function SelectItem({
   className,
   children,
   ...props
-}: ComponentProps<typeof SelectPrimitive.Item>) {
+}: React.ComponentProps<typeof SelectPrimitive.Item>) {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
@@ -112,7 +112,10 @@ function SelectItem({
       )}
       {...props}
     >
-      <span className="absolute right-2 flex size-3.5 items-center justify-center">
+      <span
+        data-slot="select-item-indicator"
+        className="absolute right-2 flex size-3.5 items-center justify-center"
+      >
         <SelectPrimitive.ItemIndicator>
           <CheckIcon className="size-4" />
         </SelectPrimitive.ItemIndicator>
@@ -125,7 +128,7 @@ function SelectItem({
 function SelectSeparator({
   className,
   ...props
-}: ComponentProps<typeof SelectPrimitive.Separator>) {
+}: React.ComponentProps<typeof SelectPrimitive.Separator>) {
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
@@ -138,7 +141,7 @@ function SelectSeparator({
 function SelectScrollUpButton({
   className,
   ...props
-}: ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
+}: React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
   return (
     <SelectPrimitive.ScrollUpButton
       data-slot="select-scroll-up-button"
@@ -156,7 +159,7 @@ function SelectScrollUpButton({
 function SelectScrollDownButton({
   className,
   ...props
-}: ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {
+}: React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {
   return (
     <SelectPrimitive.ScrollDownButton
       data-slot="select-scroll-down-button"

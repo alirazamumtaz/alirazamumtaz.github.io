@@ -1,86 +1,142 @@
-import { useEffect, useRef } from 'react'
-import hljs from 'highlight.js/lib/core'
-import javascript from 'highlight.js/lib/languages/javascript'
-import python from 'highlight.js/lib/languages/python'
-import cpp from 'highlight.js/lib/languages/cpp'
-import c from 'highlight.js/lib/languages/c'
-import bash from 'highlight.js/lib/languages/bash'
-import xml from 'highlight.js/lib/languages/xml'
-import { Copy, Check } from '@phosphor-icons/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Check, Copy } from 'lucide-react'
+import { getHighlighter, resolveLang } from '@/lib/highlight'
+import { cn } from '@/lib/utils'
 
-hljs.registerLanguage('javascript', javascript)
-hljs.registerLanguage('python', python)
-hljs.registerLanguage('cpp', cpp)
-hljs.registerLanguage('c', c)
-hljs.registerLanguage('bash', bash)
-hljs.registerLanguage('xml', xml)
+/**
+ * CodeBlock — design.md §6.6.
+ * rounded-lg, 1px border, surface per §2.3 (--syn-surface), 14px JetBrains
+ * Mono, horizontal scroll, my-6. Header strip (36px, bottom hairline):
+ * language label or filename left (mono 11px uppercase, ink-muted), copy
+ * button right (success: check + "Copied" for 1.6s, micro-pop 180ms).
+ * Syntax highlighting: shiki with the dual-theme `locus-plain-sight` theme
+ * (CSS-variable token colors — see src/lib/highlight.ts). Diff fences tint
+ * added/removed lines per §2.3.
+ */
 
-interface CodeBlockProps {
+export interface CodeBlockProps {
   code: string
-  language?: string
+  lang?: string
+  filename?: string
+  className?: string
 }
 
-export function CodeBlock({ code, language = 'plaintext' }: CodeBlockProps) {
-  const codeRef = useRef<HTMLElement>(null)
+export default function CodeBlock({ code, lang, filename, className }: CodeBlockProps) {
+  const [html, setHtml] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
-    if (codeRef.current) {
-      hljs.highlightElement(codeRef.current)
+    let cancelled = false
+    const resolved = resolveLang(lang)
+    if (resolved === null) {
+      setHtml(null)
+      return
     }
-  }, [code, language])
+    getHighlighter()
+      .then((highlighter) => {
+        if (cancelled) return
+        const out = highlighter.codeToHtml(code.replace(/\n$/, ''), {
+          lang: resolved,
+          theme: 'locus-plain-sight',
+          transformers: [
+            {
+              name: 'locus-pre',
+              pre(node) {
+                const existing = typeof node.properties.class === 'string' ? node.properties.class : ''
+                node.properties.class = cn('codeblock-pre', existing)
+              },
+              ...(resolved === 'diff'
+                ? {
+                    line(this: { source: string }, node: { properties: Record<string, unknown> }, line: number) {
+                      const src = this.source.split('\n')[line - 1] ?? ''
+                      const cls =
+                        typeof node.properties.class === 'string' ? node.properties.class : ''
+                      if (src.startsWith('+')) node.properties.class = cn(cls, 'diff-add')
+                      else if (src.startsWith('-')) node.properties.class = cn(cls, 'diff-del')
+                    },
+                  }
+                : {}),
+            },
+          ],
+        })
+        setHtml(out)
+      })
+      .catch(() => {
+        if (!cancelled) setHtml(null)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [code, lang])
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(code)
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(code)
+    } catch {
+      const ta = document.createElement('textarea')
+      ta.value = code
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand('copy')
+      ta.remove()
+    }
     setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    window.setTimeout(() => setCopied(false), 1600)
   }
 
-  const lines = code.split('\n')
+  const label = filename ?? (lang || 'text')
 
   return (
-    <div className="code-block-wrapper group relative my-7">
-      <div className="absolute top-2 right-2 z-10 flex items-center gap-2">
-        <span className="text-[10px] text-muted-foreground/60 font-mono uppercase tracking-widest px-2 py-1 bg-secondary/50 rounded border border-border/30">
-          {language}
+    <div
+      className={cn('my-6 overflow-hidden rounded-lg border border-border', className)}
+      style={{ backgroundColor: 'var(--syn-surface)' }}
+    >
+      <div
+        className="hairline-b flex h-9 items-center justify-between pl-4 pr-2"
+        style={{ backgroundColor: 'color-mix(in srgb, var(--bg-subtle) 60%, var(--bg))' }}
+      >
+        <span className="truncate font-mono text-[11px] uppercase tracking-[0.06em] text-ink-muted">
+          {label}
         </span>
         <button
-          onClick={handleCopy}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-secondary/80 hover:bg-secondary text-muted-foreground hover:text-foreground transition-all duration-200 text-[10px] font-mono uppercase tracking-widest opacity-0 group-hover:opacity-100 border border-border/50"
-          aria-label="Copy code"
-        >
-          {copied ? (
-            <>
-              <Check size={12} weight="bold" className="text-accent" />
-              <span className="text-accent">Copied</span>
-            </>
-          ) : (
-            <>
-              <Copy size={12} />
-              <span>Copy</span>
-            </>
+          type="button"
+          onClick={copy}
+          aria-label={copied ? 'Copied' : 'Copy code'}
+          className={cn(
+            'flex items-center gap-1.5 rounded-md px-2 py-1 text-[12px] text-ink-muted transition-all duration-150 hover:text-ink',
+            copied && 'scale-105 text-ink',
           )}
+        >
+          {copied ? <Check size={13} /> : <Copy size={13} />}
+          {copied ? 'Copied' : 'Copy'}
         </button>
       </div>
-      
-      <div className="code-block overflow-x-auto">
-        <div className="flex">
-          <div className="select-none text-muted-foreground/40 pr-4 text-right border-r border-border/30 font-mono text-xs leading-[1.6] pt-1">
-            {lines.map((_, i) => (
-              <div key={i}>{i + 1}</div>
-            ))}
-          </div>
-          <pre className="!bg-transparent !p-0 !m-0 flex-1 pl-4">
-            <code 
-              ref={codeRef} 
-              className={`language-${language} !bg-transparent block`}
-            >
-              {code}
-            </code>
-          </pre>
-        </div>
-      </div>
+      {html ? (
+        <div
+          // shiki output — generated locally from trusted post markdown
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      ) : (
+        <pre className="codeblock-pre" style={{ color: 'var(--syn-base)' }}>
+          <code>
+            {code.replace(/\n$/, '').split('\n').map((line, i) => {
+              const diffCls =
+                lang === 'diff'
+                  ? line.startsWith('+')
+                    ? ' diff-add'
+                    : line.startsWith('-')
+                      ? ' diff-del'
+                      : ''
+                  : ''
+              return (
+                <span key={i} className={`line${diffCls}`}>
+                  {line}
+                </span>
+              )
+            })}
+          </code>
+        </pre>
+      )}
     </div>
   )
 }

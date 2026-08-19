@@ -1,53 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>locus-x64 | Security Researcher</title>
-    <meta name="description" content="Security Researcher specializing in vulnerability research, exploit development, and reverse engineering." />
+    <meta
+      name="description"
+      content="Ali Raza (locus-x64), independent security researcher. Vulnerability research, exploit development, and reverse engineering: baseband firmware, linux kernel, userspace services."
+    />
     <link rel="canonical" href="https://locus-x64.github.io/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content="locus-x64 | Security Researcher" />
-    <meta property="og:description" content="Security Researcher specializing in vulnerability research, exploit development, and reverse engineering." />
+    <meta
+      property="og:description"
+      content="Vulnerability research, exploit development, and reverse engineering notes by Ali Raza."
+    />
     <meta property="og:url" content="https://locus-x64.github.io/" />
-    <meta property="og:image" content="https://locus-x64.github.io/logo512.png" />
+    <meta property="og:image" content="https://locus-x64.github.io/og-cover.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="locus-x64 | Security Researcher" />
-    <meta name="twitter:description" content="Security Researcher specializing in vulnerability research, exploit development, and reverse engineering." />
-    <meta name="twitter:image" content="https://locus-x64.github.io/logo512.png" />
-    
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/logo192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/logo512.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/manifest.json" />
-    
-    <meta name="theme-color" content="#5bd19d" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link href="/src/main.css" rel="stylesheet" />
-</head>
+    <meta
+      name="twitter:description"
+      content="Vulnerability research, exploit development, and reverse engineering notes by Ali Raza."
+    />
+    <meta name="twitter:image" content="https://locus-x64.github.io/og-cover.png" />
 
-<body>
-        <div id="root"></div>
-        <script>
-            (function () {
-                const redirect = new URLSearchParams(window.location.search).get('p')
-                if (!redirect) return
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)" />
 
-                const restoredPath = decodeURIComponent(redirect)
-                const newUrl = `${window.location.origin}${restoredPath}${window.location.hash}`
-                window.history.replaceState(null, '', newUrl)
-            })()
-        </script>
+    <script>
+      // No-flash theme: set .dark on <html> before first paint.
+      ;(function () {
+        try {
+          var stored = window.localStorage.getItem('theme')
+          var dark =
+            stored === 'dark' ||
+            ((stored === null || stored === 'system') &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+          if (dark) document.documentElement.classList.add('dark')
+        } catch (e) {}
+      })()
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // GitHub Pages SPA redirect restore (see public/404.html)
+      ;(function () {
+        var redirect = new URLSearchParams(window.location.search).get('p')
+        if (!redirect) return
+        var restoredPath = decodeURIComponent(redirect)
+        var newUrl = window.location.origin + restoredPath + window.location.hash
+        window.history.replaceState(null, '', newUrl)
+      })()
+    </script>
     <script type="module" src="/src/main.tsx"></script>
-</body>
-
+  </body>
 </html>

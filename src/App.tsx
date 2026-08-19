@@ -1,71 +1,47 @@
-import { useState, useEffect } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import { LandingPage } from '@/components/LandingPage'
-import { Header } from '@/components/Header'
-import { BlogListing } from '@/components/BlogListing'
-import { PostDetail } from '@/components/PostDetail'
-import { ContributionFeed } from '@/components/ContributionFeed'
-import { author } from '@/lib/blogData'
-import { loadAllPosts } from '@/lib/postLoader'
-import { BlogPost } from '@/types/blog'
-import { Toaster } from '@/components/ui/sonner'
+import { useEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import Layout from '@/components/Layout'
+import Home from '@/pages/Home'
+import Blog from '@/pages/Blog'
+import Post from '@/pages/Post'
+import Contributions from '@/pages/Contributions'
+import About from '@/pages/About'
+import NotFound from '@/pages/NotFound'
 
-function App() {
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+/**
+ * App — BrowserRouter shell (children-pattern Layout).
+ * Page enter per design.md §5: opacity 0→1, y 10→0, 280ms, once per
+ * navigation (opacity-only under prefers-reduced-motion).
+ */
+export default function App() {
+  const location = useLocation()
+  void useReducedMotion()
 
   useEffect(() => {
-    loadAllPosts().then(posts => {
-      setBlogPosts(posts)
-      setIsLoading(false)
-    })
-  }, [])
+    window.scrollTo(0, 0)
+  }, [location.pathname])
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Routes>
-        <Route path="/" element={<LandingPage author={author} />} />
-        <Route
-          path="/blog"
-          element={
-            <>
-              <Header author={author} />
-              {isLoading ? (
-                <div className="min-h-[70vh] bg-background text-foreground flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="animate-pulse text-primary text-lg">Loading posts...</div>
-                  </div>
-                </div>
-              ) : (
-                <BlogListing posts={blogPosts} />
-              )}
-            </>
-          }
-        />
-        <Route
-          path="/blog/:slug"
-          element={
-            <>
-              <Header author={author} />
-              <PostDetail />
-            </>
-          }
-        />
-        <Route
-          path="/contributions"
-          element={
-            <>
-              <Header author={author} />
-              <ContributionFeed />
-            </>
-          }
-        />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-
-      <Toaster />
-    </div>
+    <Layout>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={location.pathname}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, transition: { duration: 0.1 } }}
+          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Routes location={location}>
+            <Route path="/" element={<Home />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<Post />} />
+            <Route path="/contributions" element={<Contributions />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </motion.div>
+      </AnimatePresence>
+    </Layout>
   )
 }
-
-export default App

@@ -1,70 +1,73 @@
-# locus-x64 | Security Researcher Blog
+# React + TypeScript + Vite
 
-A modern blog website for security researcher **@locus-x64**, specializing in vulnerability discovery, exploit development, and reverse engineering.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Features
+Currently, two official plugins are available:
 
-- Modern, clean design with dark theme
-- Syntax-highlighted code blocks
-- Smooth page transitions
-- Responsive layout
-- Landing page with author introduction
-- Blog listing with tag filtering
-- Individual post detail pages
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Adding New Blog Posts
+## React Compiler
 
-Blog posts are stored as individual markdown files in `/public/posts/`.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-1. Create a new `.md` file in `/public/posts/` (e.g., `my-new-post.md`)
-2. Add frontmatter with post metadata
-3. Write your content in markdown
-4. Update `/public/posts/index.json` with the post metadata
+## Expanding the ESLint configuration
 
-### Example Post Structure
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```markdown
----
-id: "6"
-slug: "my-new-post"
-title: "My New Security Research"
-excerpt: "Brief description of the post"
-date: "2024-01-25"
-readingTime: 10
-tags: ["security", "research"]
----
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-## Introduction
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-Your content here...
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-## Local Development
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```bash
-# Install dependencies
-npm install
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-## Deploying to GitHub Pages
-
-This repository includes a GitHub Actions workflow that automatically deploys to GitHub Pages on every push to `main`.
-
-1. Go to **Settings** → **Pages** in your repository
-2. Under **Source**, select **GitHub Actions**
-3. Push to the `main` branch — the workflow handles the rest
-
-Your site will be available at: `https://locus-x64.github.io/`
-
-## License
-
-MIT

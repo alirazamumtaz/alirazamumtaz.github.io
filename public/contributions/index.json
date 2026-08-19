@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-23T08:59:56.664Z",
+  "generatedAt": "2026-08-19T15:19:44.156Z",
   "username": "locus-x64",
   "items": [
     {
       "id": "pr:scanipy/scanipy-oss#10",
       "type": "patch",
-      "title": "docs: release 0.2.0 — de-stub docs, version bump, end-to-end example, doc tests (Phase 6, WP-H)",
+      "title": "docs: release 0.2.0, de-stub docs, version bump, end-to-end example, doc tests (Phase 6, WP-H)",
       "summary": "Phase 6 (final) of [PLAN.md](PLAN.md). Ships the working `0.2.0`: - `__version__` → **0.2.0**; README/usage **de-stubbed** (scan/rules are real) and honest that it's   **install-from-source / not yet on PyPI** (P7). - `docs/dsl-reference.m…",
       "repo": "scanipy/scanipy-oss",
       "url": "https://github.com/scanipy/scanipy-oss/pull/10",
@@ -19,7 +19,7 @@
     {
       "id": "pr:scanipy/scanipy-oss#9",
       "type": "patch",
-      "title": "test: cross-cutting QA — determinism, golden snapshots, resilience, perf, coverage gate ≥90% (Phase 5, WP-G)",
+      "title": "test: cross-cutting QA, determinism, golden snapshots, resilience, perf, coverage gate ≥90% (Phase 5, WP-G)",
       "summary": "Phase 5 of [PLAN.md](PLAN.md). Cross-cutting test guarantees on top of the per-detector P5 matrix: **coverage gate** (`--cov-fail-under=90`, wired into CI; global **95.64%**), **determinism** (corpus scanned twice → byte-identical JSON+SAR…",
       "repo": "scanipy/scanipy-oss",
       "url": "https://github.com/scanipy/scanipy-oss/pull/9",
@@ -33,7 +33,7 @@
     {
       "id": "pr:scanipy/scanipy-oss#8",
       "type": "patch",
-      "title": "feat(cli): working scan/rules pipeline — discovery, config, reporting, exit codes (Phase 4, WP-F)",
+      "title": "feat(cli): working scan/rules pipeline, discovery, config, reporting, exit codes (Phase 4, WP-F)",
       "summary": "Phase 4 of [PLAN.md](PLAN.md). Makes `scanipy scan` and `scanipy rules` real: `scanner.py` orchestrator (discover → frontend+engine per file with per-file isolation → aggregate/filter/dedup/total-order sort → render → exit code), `discover…",
       "repo": "scanipy/scanipy-oss",
       "url": "https://github.com/scanipy/scanipy-oss/pull/8",
@@ -47,7 +47,7 @@
     {
       "id": "pr:scanipy/scanipy-oss#7",
       "type": "patch",
-      "title": "feat(detectors): v1 catalog — code-injection, path-traversal, SSRF, deserialization, XXE (Phase 4, WP-E)",
+      "title": "feat(detectors): v1 catalog, code-injection, path-traversal, SSRF, deserialization, XXE (Phase 4, WP-E)",
       "summary": "Phase 4 of [PLAN.md](PLAN.md). Adds the v1 detector catalog as declarative taint-DSL (data only, P4): **code-injection** (CWE-94), **path-traversal** (CWE-22), **ssrf** (CWE-918), **unsafe-deserialization** (CWE-502), **xxe** (CWE-611, mod…",
       "repo": "scanipy/scanipy-oss",
       "url": "https://github.com/scanipy/scanipy-oss/pull/7",
@@ -61,8 +61,8 @@
     {
       "id": "pr:scanipy/scanipy-oss#6",
       "type": "patch",
-      "title": "feat(engine): taint analysis core — intra-file interprocedural via TITO summaries (Phase 3, WP-D)",
-      "summary": "Phase 3 of [PLAN.md](PLAN.md) — the correctness-critical core. Implements `TaintEngine.analyze` end-to-end: access-path taint lattice, flow-sensitive CFG dataflow with **union-at-join** one-sided sanitizers, generic detector-agnostic propa…",
+      "title": "feat(engine): taint analysis core, intra-file interprocedural via TITO summaries (Phase 3, WP-D)",
+      "summary": "Phase 3 of [PLAN.md](PLAN.md), the correctness-critical core. Implements `TaintEngine.analyze` end-to-end: access-path taint lattice, flow-sensitive CFG dataflow with **union-at-join** one-sided sanitizers, generic detector-agnostic propa…",
       "repo": "scanipy/scanipy-oss",
       "url": "https://github.com/scanipy/scanipy-oss/pull/6",
       "date": "2026-06-08T14:43:06Z",
@@ -76,7 +76,7 @@
       "id": "pr:scanipy/scanipy-oss#5",
       "type": "patch",
       "title": "feat(engine): pattern matcher with pinned wildcard/args/when semantics (Phase 2, WP-C)",
-      "summary": "Phase 2 of [PLAN.md](PLAN.md). Adds `src/scanipy/engine/matcher.py` — a pure, deterministic `match(pattern, node) -> MatchResult | None` over the real `scanipy.ir` nodes: kind gate, exact / trailing-single / leading-greedy dotted wildcards…",
+      "summary": "Phase 2 of [PLAN.md](PLAN.md). Adds `src/scanipy/engine/matcher.py`, a pure, deterministic `match(pattern, node) -> MatchResult | None` over the real `scanipy.ir` nodes: kind gate, exact / trailing-single / leading-greedy dotted wildcards…",
       "repo": "scanipy/scanipy-oss",
       "url": "https://github.com/scanipy/scanipy-oss/pull/5",
       "date": "2026-06-08T13:33:50Z",
@@ -118,7 +118,7 @@
       "id": "pr:scanipy/scanipy-oss#2",
       "type": "patch",
       "title": "docs: v1 implementation plan (scaffold → working 0.2.0)",
-      "summary": "The master build plan to take the `0.1.0` scaffold to a working, tested, documented `0.2.0` taint-tracking SAST. **Adds** - `PLAN.md` — vision/scope, architecture (prior-art-grounded: access-path taint,   flow-sensitive CFG dataflow, union…",
+      "summary": "The master build plan to take the `0.1.0` scaffold to a working, tested, documented `0.2.0` taint-tracking SAST. **Adds** - `PLAN.md`, vision/scope, architecture (prior-art-grounded: access-path taint,   flow-sensitive CFG dataflow, union…",
       "repo": "scanipy/scanipy-oss",
       "url": "https://github.com/scanipy/scanipy-oss/pull/2",
       "date": "2026-06-08T11:47:14Z",
@@ -132,7 +132,7 @@
       "id": "pr:scanipy/scanipy-oss#1",
       "type": "patch",
       "title": "feat: initialize scanipy OSS scaffold (CLI skeleton, taint-DSL design, agents)",
-      "summary": "Initializes the **scanipy** open-source edition — a local, private, taint-tracking SAST CLI for Python (the free CLI taste of scanipy). This is the **0.1.0 scaffold**: foundation + agent team, not a working engine yet. ## What's included -…",
+      "summary": "Initializes the **scanipy** open-source edition, a local, private, taint-tracking SAST CLI for Python (the free CLI taste of scanipy). This is the **0.1.0 scaffold**: foundation + agent team, not a working engine yet. ## What's included -…",
       "repo": "scanipy/scanipy-oss",
       "url": "https://github.com/scanipy/scanipy-oss/pull/1",
       "date": "2026-06-08T10:54:58Z",
@@ -188,7 +188,7 @@
       "id": "pr:scanipy/scanipy.github.io#4",
       "type": "patch",
       "title": "Redesign round 2: dark hero + DarkPipeline + expanded nav + new pages",
-      "summary": "## What this is PR #3's round-2 commit (the one carrying the dark hero + expanded nav + new pages) didn't make it into the merge — only the round-1 commit landed on `main`. This PR brings the missing round-2 work in cleanly. The branch has…",
+      "summary": "## What this is PR #3's round-2 commit (the one carrying the dark hero + expanded nav + new pages) didn't make it into the merge, only the round-1 commit landed on `main`. This PR brings the missing round-2 work in cleanly. The branch has…",
       "repo": "scanipy/scanipy.github.io",
       "url": "https://github.com/scanipy/scanipy.github.io/pull/4",
       "date": "2026-05-09T19:27:40Z",
@@ -298,6 +298,20 @@
         "CVE",
         "Medium",
         "openclaw"
+      ]
+    },
+    {
+      "id": "pr:scanipy/scanipy.github.io#1",
+      "type": "patch",
+      "title": "Add Open Graph and Twitter Card metadata for link previews",
+      "summary": "Site had no OG/Twitter meta tags, so link previews on social platforms showed no image or structured information. ### Changes - **`public/og-image.png`**, 1200×630 OG image with logo, gradient background, tagline, and feature badges - **`…",
+      "repo": "scanipy/scanipy.github.io",
+      "url": "https://github.com/scanipy/scanipy.github.io/pull/1",
+      "date": "2026-02-14T08:48:57Z",
+      "state": "merged",
+      "tags": [
+        "PR",
+        "scanipy"
       ]
     },
     {

@@ -336,4 +336,4 @@ I hope this was an informative tutorial. Happy Learning!
 
 > Learning Linux is fun with [Dr. Arif Butt](http://www.arifbutt.me/)
 
-— locus-x64
+- locus-x64

@@ -279,9 +279,13 @@ async function main() {
   }
 
   const merged = mergeOverrides([...advisories, ...prs, ...issues], overrides)
-  const filtered = applyFilters(merged).sort(
-    (a, b) => new Date(b.date) - new Date(a.date),
-  )
+  const filtered = applyFilters(merged)
+    .map((it) => ({
+      ...it,
+      title: typeof it.title === 'string' ? it.title.replace(/ — /g, ', ') : it.title,
+      summary: typeof it.summary === 'string' ? it.summary.replace(/ — /g, ', ') : it.summary,
+    }))
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
 
   const payload = { generatedAt: new Date().toISOString(), username, items: filtered }
   await fs.mkdir(outDir, { recursive: true })
