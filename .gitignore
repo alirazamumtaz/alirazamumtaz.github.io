@@ -1,3 +1,20 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build output
+dist
+dist-ssr
+*-dist
+build
+
+# Vite / tooling caches
+.vite
+node_modules/.vite
+*.tsbuildinfo
+.eslintcache
+
 # Logs
 logs
 *.log
@@ -6,29 +23,31 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+pids
 
-node_modules
-dist
-dist-ssr
-*-dist
+# Environment / secrets
+.env
+.env.*
+!.env.example
 *.local
 
-# Editor directories and files
+# Editors
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-.env
-**/agent-eval-report*
-packages
-pids
-.file-manifest
-.devcontainer/
+# OS
+.DS_Store
+Thumbs.db
 
-.spark-workbench-id
+# Notes
+# Generated at build time by `npm run prebuild`, but kept in git so the
+# repo can be served/previewed without a GitHub token:
+#   public/blog/**        (per-post share pages)
+#   public/rss.xml
+#   public/contributions/index.json
