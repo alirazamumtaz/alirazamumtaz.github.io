@@ -12,7 +12,7 @@ import { GITHUB_URL, RSS_URL, Wordmark } from '@/components/Navbar'
  */
 
 const SOCIALS = [
-  { label: 'Email', href: 'mailto:locus-x64@proton.me', Icon: Mail },
+  { label: 'Email', href: 'mailto:elirazamumtaz@gmail.com', Icon: Mail },
   { label: 'GitHub', href: GITHUB_URL, Icon: Github },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/locus-x64', Icon: Linkedin },
   { label: 'X', href: 'https://x.com/locus_x64', Icon: Twitter },

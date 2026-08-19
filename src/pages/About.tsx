@@ -21,7 +21,7 @@ import type { LucideIcon } from 'lucide-react'
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
-const EMAIL = 'locus-x64@proton.me'
+const EMAIL = 'elirazamumtaz@gmail.com'
 const REPO_URL = 'https://github.com/locus-x64/locus-x64.github.io'
 
 const FOCUS_AREAS: { term: string; definition: string }[] = [
