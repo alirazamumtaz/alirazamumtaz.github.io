@@ -9,11 +9,10 @@ import { cn } from '@/lib/utils'
 
 /**
  * Contributions (/contributions) — contributions.md.
- * Quiet ledger of merged PRs ("patches") and published advisories rendered
- * from /contributions/index.json. Header (H1 + description + computed stat
- * line), text filter tabs (All / Advisories / Patches, counts, layoutId
- * underline) with a ghost sort dropdown, year-grouped hairline-separated
- * ContributionItem rows, "Show all" reveal. URL state: ?type=&sort=asc.
+ * Quiet ledger of published security advisories rendered from
+ * /contributions/index.json. Header (H1 + description + computed stat
+ * line), ghost sort dropdown, year-grouped hairline-separated
+ * ContributionItem rows, "Show all" reveal. URL state: ?sort=asc.
  * Motion is subtle fades/rises only (150–300ms, §5 easing).
  */
 
@@ -21,14 +20,7 @@ const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number]
 const PAGE_SIZE = 20
 const BASE_TITLE = 'locus-x64 | Security Researcher'
 
-type TypeFilter = 'all' | 'advisory' | 'patch'
 type SortOrder = 'desc' | 'asc'
-
-const TABS: { key: TypeFilter; label: string }[] = [
-  { key: 'all', label: 'All' },
-  { key: 'advisory', label: 'Advisories' },
-  { key: 'patch', label: 'Patches' },
-]
 
 const SORT_OPTIONS: { key: SortOrder; label: string }[] = [
   { key: 'desc', label: 'Newest' },
@@ -238,47 +230,30 @@ export default function Contributions() {
     }
   }, [attempt])
 
-  const type: TypeFilter =
-    searchParams.get('type') === 'advisory' || searchParams.get('type') === 'patch'
-      ? (searchParams.get('type') as TypeFilter)
-      : 'all'
   const sort: SortOrder = searchParams.get('sort') === 'asc' ? 'asc' : 'desc'
 
-  const updateParams = (nextType: TypeFilter, nextSort: SortOrder) => {
+  const updateParams = (nextSort: SortOrder) => {
     const next = new URLSearchParams(searchParams)
-    if (nextType === 'all') next.delete('type')
-    else next.set('type', nextType)
+    next.delete('type') // legacy param — only advisories are shown now
     if (nextSort === 'desc') next.delete('sort')
     else next.set('sort', nextSort)
     setSearchParams(next, { replace: true })
     setShowAll(false)
   }
 
-  const counts = useMemo(() => {
-    const all = items ?? []
-    return {
-      all: all.length,
-      advisory: all.filter((i) => i.type === 'advisory').length,
-      patch: all.filter((i) => i.type === 'patch').length,
-    }
-  }, [items])
-
   const statLine = useMemo(() => {
     if (!items || items.length === 0) return null
-    const patches = items.filter((i) => i.type === 'patch').length
-    const advisories = items.length - patches
     const years = items.map((i) => yearOf(i))
     const min = Math.min(...years.map(Number))
     const max = Math.max(...years.map(Number))
-    return `${items.length} contributions Â· ${patches} patches merged Â· ${advisories} advisories published Â· ${min}–${max}`
+    return `${items.length} advisories published · ${min}–${max}`
   }, [items])
 
   const filtered = useMemo(() => {
     const all = items ?? []
-    const byType = type === 'all' ? all : all.filter((i) => i.type === type)
-    const sorted = [...byType].sort((a, b) => (a.date < b.date ? -1 : 1))
+    const sorted = [...all].sort((a, b) => (a.date < b.date ? -1 : 1))
     return sort === 'desc' ? sorted.reverse() : sorted
-  }, [items, type, sort])
+  }, [items, sort])
 
   const visible = showAll ? filtered : filtered.slice(0, PAGE_SIZE)
 
@@ -302,7 +277,7 @@ export default function Contributions() {
     transition: { duration: 0.26, delay: delayMs / 1000, ease: EASE },
   })
 
-  const listKey = `${type}|${sort}`
+  const listKey = sort
 
   return (
     <div className="mx-auto max-w-3xl px-5 sm:px-6">
@@ -315,8 +290,8 @@ export default function Contributions() {
           {...headerAnim(60)}
           className="mt-3 max-w-[62ch] text-[15.5px] leading-[1.65] text-ink-secondary"
         >
-          Pull requests and security advisories across open-source projects:
-          taint-analysis tooling, fuzzing targets, and coordinated disclosures.
+          Published security advisories across open-source projects:
+          coordinated disclosures and assigned CVEs.
         </motion.p>
         {statLine && (
           <motion.p
@@ -328,47 +303,17 @@ export default function Contributions() {
         )}
       </header>
 
-      {/* ---------- Section 2 — filter tabs + sort ---------- */}
+      {/* ---------- Section 2 — sort ---------- */}
       <motion.section
         initial={false}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.2, delay: 0.15 }}
         className="pb-6"
-        aria-label="Filter contributions"
+        aria-label="Sort contributions"
       >
-        <div className="flex items-end justify-between gap-4 border-b border-border">
-          <div role="tablist" aria-label="Contribution type" className="flex items-center gap-5">
-            {TABS.map((tab) => {
-              const isActive = tab.key === type
-              return (
-                <button
-                  key={tab.key}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => updateParams(tab.key, sort)}
-                  className={cn(
-                    'relative pb-2.5 text-[14.5px] font-medium transition-colors duration-150',
-                    isActive ? 'text-ink' : 'text-ink-muted hover:text-ink',
-                  )}
-                >
-                  {tab.label}
-                  <span className="ml-1.5 font-mono text-[12px] text-ink-muted">
-                    {counts[tab.key]}
-                  </span>
-                  {isActive && (
-                    <motion.span
-                      layoutId="contrib-tab-underline"
-                      transition={{ duration: 0.22, ease: EASE }}
-                      className="absolute -bottom-px left-0 right-0 h-[2px] bg-accent"
-                    />
-                  )}
-                </button>
-              )
-            })}
-          </div>
+        <div className="flex items-end justify-end gap-4 border-b border-border">
           <div className="pb-1.5">
-            <SortDropdown sort={sort} onChange={(s) => updateParams(type, s)} />
+            <SortDropdown sort={sort} onChange={(s) => updateParams(s)} />
           </div>
         </div>
       </motion.section>
@@ -394,7 +339,7 @@ export default function Contributions() {
           <p className="mt-3 text-[15px] font-semibold text-ink">No items in this view.</p>
           <button
             type="button"
-            onClick={() => updateParams('all', 'desc')}
+            onClick={() => updateParams('desc')}
             className="mt-2 text-[14px] text-accent transition-colors duration-150 hover:text-accent-hover"
           >
             Reset filters

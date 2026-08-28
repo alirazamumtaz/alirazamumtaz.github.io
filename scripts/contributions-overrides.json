@@ -2,6 +2,18 @@
   "_comment": "Manual contributions not discoverable via the public GitHub APIs (e.g. repo-only advisories not yet in the global Advisory DB). Auto-merged with API results by scripts/fetch-contributions.mjs.",
   "items": [
     {
+      "id": "libjxl:pr-4885-cwe-681",
+      "type": "advisory",
+      "title": "libjxl: Box size truncation on 32-bit platforms (CWE-681)",
+      "summary": "Incorrect conversion between numeric types (CWE-681) in libjxl truncates JPEG XL box sizes on 32-bit platforms. Reported to the libjxl project and fixed in PR #4885 (commit 8033357), merged 01 Jul 2026.",
+      "repo": "libjxl/libjxl",
+      "url": "https://github.com/libjxl/libjxl/pull/4885/changes/8033357711adea6bcd8d75097996dad028486fff",
+      "date": "2026-07-01",
+      "state": "published",
+      "severity": "unknown",
+      "tags": ["Advisory", "CWE-681", "Integer Truncation", "C++", "libjxl"]
+    },
+    {
       "id": "ghsa:GHSA-f78v-p5hx-m7hh",
       "type": "advisory",
       "title": "Local Privilege Escalation (LPE) via TOCTOU race condition in cap_set_file() through file capability injection",

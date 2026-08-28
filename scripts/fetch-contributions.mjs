@@ -42,6 +42,7 @@ const MIN_DATE = '2024-12-31' // exclusive lower bound — keeps only > this dat
  * scripts/contributions-overrides.json instead.
  */
 const ADVISORY_GHSA_IDS = [
+  'GHSA-fpc4-x22x-vhwx', // CVE-2026-76832 — Agno PythonTools path traversal
   'GHSA-xwjm-j929-xq7c', // CVE-2026-26972 — OpenClaw path traversal
   'GHSA-qqhf-pm3j-96g7', // CVE-2025-68472 — MindsDB filepath sanitation
   'GHSA-g8c6-8fjj-2r4m', // CVE-2025-61765 — python-socketio pickle RCE

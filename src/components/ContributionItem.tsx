@@ -65,7 +65,9 @@ export default function ContributionItem({ item, condensed = false }: Contributi
           className="group mt-2 inline-flex items-baseline gap-1.5"
         >
           <span className="text-[15.5px] font-semibold leading-[1.45] text-ink transition-colors duration-150 group-hover:text-accent">
-            {item.title}
+            {item.cveId && !item.title.startsWith(item.cveId)
+              ? `${item.cveId}: ${item.title}`
+              : item.title}
           </span>
           <ExternalLink
             size={13}
