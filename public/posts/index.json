@@ -1,5 +1,14 @@
 [
   {
+    "id": "7",
+    "slug": "cve-2026-82522",
+    "title": "CVE-2026-82522: Phantom Box Injection in libjxl's Container Parser on 32-bit Platforms",
+    "excerpt": "A 64-to-32 bit integer truncation in libjxl's container box parser lets an attacker shift box boundaries on 32-bit builds, making the decoder parse attacker-controlled codestream bytes as phantom box headers and inject arbitrary Exif/XMP metadata.",
+    "date": "2026-09-04",
+    "readingTime": 11,
+    "tags": ["Vulnerability Research", "C", "Integer Truncation", "CVE"]
+  },
+  {
     "id": "6",
     "slug": "cve-2020-25279",
     "title": "Call of the Death: An N-Day Walk Through a Samsung Baseband Heap Overflow (CVE-2020-25279)",

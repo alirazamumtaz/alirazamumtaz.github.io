@@ -6,8 +6,19 @@
     <atom:link href="https://locus-x64.github.io/rss.xml" rel="self" type="application/rss+xml"/>
     <description>Vulnerability research, exploit development and reverse engineering notes by Ali Raza (locus-x64).</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Aug 2026 15:19:44 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2026 12:08:17 GMT</lastBuildDate>
     <generator>locus-x64 generate-rss.mjs</generator>
+    <item>
+      <title>CVE-2026-82522: Phantom Box Injection in libjxl&apos;s Container Parser on 32-bit Platforms</title>
+      <link>https://locus-x64.github.io/blog/cve-2026-82522</link>
+      <guid isPermaLink="true">https://locus-x64.github.io/blog/cve-2026-82522</guid>
+      <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+      <description>A 64-to-32 bit integer truncation in libjxl&apos;s container box parser lets an attacker shift box boundaries on 32-bit builds, making the decoder parse attacker-controlled codestream bytes as phantom box headers and inject arbitrary Exif/XMP metadata.</description>
+      <category>Vulnerability Research</category>
+      <category>C</category>
+      <category>Integer Truncation</category>
+      <category>CVE</category>
+    </item>
     <item>
       <title>Call of the Death: An N-Day Walk Through a Samsung Baseband Heap Overflow (CVE-2020-25279)</title>
       <link>https://locus-x64.github.io/blog/cve-2020-25279</link>
