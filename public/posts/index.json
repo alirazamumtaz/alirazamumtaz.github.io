@@ -6,7 +6,8 @@
     "excerpt": "A 64-to-32 bit integer truncation in libjxl's container box parser lets an attacker shift box boundaries on 32-bit builds, making the decoder parse attacker-controlled codestream bytes as phantom box headers and inject arbitrary Exif/XMP metadata.",
     "date": "2026-09-04",
     "readingTime": 11,
-    "tags": ["Vulnerability Research", "C", "Integer Truncation", "CVE"]
+    "tags": ["Vulnerability Research", "C", "Integer Truncation", "CVE"],
+    "ogImage": "https://locus-x64.github.io/images/posts/cve-2026-82522/og-image.png"
   },
   {
     "id": "6",
